@@ -2,9 +2,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:language="clr-namespace:MicrowaveConverter.Resources.Language"
-             x:Class="MicrowaveConverter.MainPage">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MicrowaveConverter.Views.MainPage">
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </ContentPage.Resources>
 
     <ScrollView>
+        <VerticalStackLayout Padding="20">
+            
+            <!-- Original wattage -->
+            <VerticalStackLayout Padding="20">
+                <Label Text="{x:Static language:Strings.OriginalWattage}"></Label>
+                <Entry Text="{Binding InputOriginalWattage}"
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <!-- Show invalid input -->
+                        <toolkit:NumericValidationBehavior
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            Flags="ValidateOnValueChanged"
+                            MinimumValue="1"
+                            MaximumValue="2000"
+                            MaximumDecimalPlaces="0" />
+
+                        <!-- Update the ViewModel after each input -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding UpdateAfterInputCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+        
+            <!-- Original time -->
+            <VerticalStackLayout Padding="20">
+                <Label Text="{x:Static language:Strings.OriginalTime}"></Label>
+                <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}">
+                    <Entry.Behaviors>
+                        <!-- Update the ViewModel after each input -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding UpdateAfterInputCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+            
+            <!-- Target wattage -->
+            <VerticalStackLayout Padding="20">
+                <Label Text="{x:Static language:Strings.TargetWattage}"></Label>
+                <Entry Text="{Binding InputTargetWattage}"
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <!-- Show invalid input -->
+                        <toolkit:NumericValidationBehavior
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            Flags="ValidateOnValueChanged"
+                            MinimumValue="1"
+                            MaximumValue="2000"
+                            MaximumDecimalPlaces="0" />
+
+                        <!-- Update the ViewModel after each input -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding UpdateAfterInputCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+            
+            <!-- Target time -->
+            <VerticalStackLayout Padding="20">
+                <Label Text="{x:Static language:Strings.TargetTime}"></Label>
+                <Entry Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
+                       IsEnabled="False"></Entry>
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>

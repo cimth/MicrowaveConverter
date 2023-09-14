@@ -25,12 +25,12 @@
         <value>Recommended Wattage</value>
     </data>
     <data name="OriginalTime" xml:space="preserve">
-        <value>Recommended Time (MM:SS)</value>
+        <value>Recommended Time</value>
     </data>
     <data name="TargetWattage" xml:space="preserve">
         <value>Target Wattage</value>
     </data>
     <data name="TargetTime" xml:space="preserve">
-        <value>Target Time (MM:SS)</value>
+        <value>Target Time</value>
     </data>
 </root>

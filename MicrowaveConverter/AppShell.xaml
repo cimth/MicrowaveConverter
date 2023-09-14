@@ -5,11 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MicrowaveConverter"
     xmlns:language="clr-namespace:MicrowaveConverter.Resources.Language"
+    xmlns:views="using:MicrowaveConverter.Views"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="{x:Static language:Strings.AppTitle}"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
 
 </Shell>

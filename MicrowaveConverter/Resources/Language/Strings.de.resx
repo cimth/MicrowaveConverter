@@ -25,12 +25,12 @@
         <value>Angegebene Leistung (in Watt)</value>
     </data>
     <data name="OriginalTime" xml:space="preserve">
-        <value>Angegebene Dauer (MM:SS)</value>
+        <value>Angegebene Dauer</value>
     </data>
     <data name="TargetWattage" xml:space="preserve">
         <value>Verwendete Leistung (in Watt)</value>
     </data>
     <data name="TargetTime" xml:space="preserve">
-        <value>Benötigte Zeit (MM:SS)</value>
+        <value>Benötigte Zeit</value>
     </data>
 </root>

@@ -69,7 +69,7 @@ namespace MicrowaveConverter.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angegebene Dauer (MM:SS).
+        ///   Looks up a localized string similar to Angegebene Dauer.
         /// </summary>
         internal static string OriginalTime {
             get {
@@ -87,7 +87,7 @@ namespace MicrowaveConverter.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Benötigte Zeit (MM:SS).
+        ///   Looks up a localized string similar to Benötigte Zeit.
         /// </summary>
         internal static string TargetTime {
             get {
