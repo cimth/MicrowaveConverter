@@ -73,7 +73,7 @@ public class MainViewModel : NotifyPropertyChangedImpl
     private string _inputOriginalTime = "2:00";
 
     private string _inputTargetWattage = "600";
-    private string _outputTargetTime = "2:40";
+    private string _outputTargetTime = "--:--";
 
     private bool _isValidInputOriginalWattage;
     private bool _isValidInputOriginalTime;
@@ -86,6 +86,10 @@ public class MainViewModel : NotifyPropertyChangedImpl
     public MainViewModel()
     {
         UpdateAfterInputCommand = new DelegateCommand(UpdateAfterInput);
+
+        // Run the update method once to apply the correct values after having them initialized.
+        // Thus, the output target time and the validation properties will be computed correctly.
+        UpdateAfterInput();
     }
 
     // ==============

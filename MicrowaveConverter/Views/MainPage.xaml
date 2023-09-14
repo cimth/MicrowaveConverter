@@ -5,12 +5,6 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MicrowaveConverter.Views.MainPage">
 
-    <ContentPage.Resources>
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-    </ContentPage.Resources>
-
     <ScrollView>
         <VerticalStackLayout Padding="20">
             
@@ -19,15 +13,13 @@
                 <Label Text="{x:Static language:Strings.OriginalWattage}"></Label>
                 <Entry Text="{Binding InputOriginalWattage}"
                        Keyboard="Numeric">
-                    <Entry.Behaviors>
+                    <Entry.Triggers>
                         <!-- Show invalid input -->
-                        <toolkit:NumericValidationBehavior
-                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                            Flags="ValidateOnValueChanged"
-                            MinimumValue="1"
-                            MaximumValue="2000"
-                            MaximumDecimalPlaces="0" />
-
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalWattage}" Value="False">
+                            <Setter Property="TextColor" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Entry.Triggers>
+                    <Entry.Behaviors>
                         <!-- Update the ViewModel after each input -->
                         <toolkit:EventToCommandBehavior
                             EventName="TextChanged"
@@ -40,6 +32,12 @@
             <VerticalStackLayout Padding="20">
                 <Label Text="{x:Static language:Strings.OriginalTime}"></Label>
                 <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}">
+                    <Entry.Triggers>
+                        <!-- Show invalid input -->
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalTime}" Value="False">
+                            <Setter Property="TextColor" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Entry.Triggers>
                     <Entry.Behaviors>
                         <!-- Update the ViewModel after each input -->
                         <toolkit:EventToCommandBehavior
@@ -54,15 +52,13 @@
                 <Label Text="{x:Static language:Strings.TargetWattage}"></Label>
                 <Entry Text="{Binding InputTargetWattage}"
                        Keyboard="Numeric">
-                    <Entry.Behaviors>
+                    <Entry.Triggers>
                         <!-- Show invalid input -->
-                        <toolkit:NumericValidationBehavior
-                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                            Flags="ValidateOnValueChanged"
-                            MinimumValue="1"
-                            MaximumValue="2000"
-                            MaximumDecimalPlaces="0" />
-
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputTargetWattage}" Value="False">
+                            <Setter Property="TextColor" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Entry.Triggers>
+                    <Entry.Behaviors>
                         <!-- Update the ViewModel after each input -->
                         <toolkit:EventToCommandBehavior
                             EventName="TextChanged"
