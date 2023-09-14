@@ -5,9 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MicrowaveConverter"
     xmlns:language="clr-namespace:MicrowaveConverter.Resources.Language"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:views="using:MicrowaveConverter.Views"
     Shell.FlyoutBehavior="Disabled"
     Shell.BackgroundColor="{DynamicResource Primary}">
+
+    <!-- Customize the status bar on Android -->
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" />
+    </Shell.Behaviors>
 
     <!-- Customize the navigation -->
     <Shell.TitleView>
