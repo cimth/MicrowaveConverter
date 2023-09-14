@@ -6,10 +6,23 @@
     xmlns:local="clr-namespace:MicrowaveConverter"
     xmlns:language="clr-namespace:MicrowaveConverter.Resources.Language"
     xmlns:views="using:MicrowaveConverter.Views"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    Shell.BackgroundColor="{DynamicResource Primary}">
 
+    <!-- Customize the navigation -->
+    <Shell.TitleView>
+        <Grid>
+            <Label 
+                Text="{x:Static language:Strings.AppTitle}"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                FontSize="Medium"
+                TextColor="{StaticResource White}"></Label>
+        </Grid>
+    </Shell.TitleView>
+
+    <!-- Routes of the app -->
     <ShellContent
-        Title="{x:Static language:Strings.AppTitle}"
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
 
