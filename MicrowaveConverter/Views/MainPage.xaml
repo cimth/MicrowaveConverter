@@ -10,7 +10,9 @@
             
             <!-- Original wattage -->
             <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.OriginalWattage}"></Label>
+                <Label Text="{x:Static language:Strings.OriginalWattage}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
                 <Entry Text="{Binding InputOriginalWattage}"
                        Keyboard="Numeric">
                     <Entry.Triggers>
@@ -30,7 +32,9 @@
         
             <!-- Original time -->
             <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.OriginalTime}"></Label>
+                <Label Text="{x:Static language:Strings.OriginalTime}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
                 <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
@@ -49,7 +53,9 @@
             
             <!-- Target wattage -->
             <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.TargetWattage}"></Label>
+                <Label Text="{x:Static language:Strings.TargetWattage}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
                 <Entry Text="{Binding InputTargetWattage}"
                        Keyboard="Numeric">
                     <Entry.Triggers>
@@ -69,7 +75,9 @@
             
             <!-- Target time -->
             <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.TargetTime}"></Label>
+                <Label Text="{x:Static language:Strings.TargetTime}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
                 <Entry Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
                        IsEnabled="False"></Entry>
             </VerticalStackLayout>
