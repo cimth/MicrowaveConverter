@@ -95,19 +95,55 @@
                         Command="{Binding ContinueFromTargetWattageCommand}"
                         Style="{StaticResource Button}" />
             </VerticalStackLayout>
-            
-            <!-- Target time -->
+
+            <!-- 
+                In the following, the original wattage, the original time and the target wattage and the computed target time are shown as readonly fields
+                so that the user can see their input and the result of the computation.
+            -->
+
             <VerticalStackLayout Padding="20"
                                  IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetTime}}">
-                <Label Text="{x:Static language:Strings.TargetTime}"
-                       Style="{StaticResource LabelHeader}"></Label>
+                <!-- Original wattage -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.OriginalWattage}"
+                           Style="{StaticResource LabelHeader}"></Label>
 
-                <Entry Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
-                       IsEnabled="False"></Entry>
+                    <Entry Text="{Binding InputOriginalWattage}"
+                           IsEnabled="False"></Entry>
+                </VerticalStackLayout>
 
+                <!-- Original time -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.OriginalTime}"
+                           Style="{StaticResource LabelHeader}"></Label>
+
+                    <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
+                           IsEnabled="False"></Entry>
+                </VerticalStackLayout>
+
+                <!-- Target wattage -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.TargetWattage}"
+                           Style="{StaticResource LabelHeader}"></Label>
+
+                    <Entry Text="{Binding InputTargetWattage}"
+                           IsEnabled="False"></Entry>
+                </VerticalStackLayout>
+
+                <!-- Target time -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.TargetTime}"
+                           Style="{StaticResource LabelHeader}"></Label>
+
+                    <Entry Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
+                           IsEnabled="False"></Entry>
+                </VerticalStackLayout>
+
+                <!-- Restart the app flow -->
                 <Button Text="{x:Static language:Strings.Restart}"
                         Command="{Binding RestartCommand}"
                         Style="{StaticResource Button}" />
+                
             </VerticalStackLayout>
             
         </VerticalStackLayout>

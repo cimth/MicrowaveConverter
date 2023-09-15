@@ -11,6 +11,7 @@ public class MainViewModel : NotifyPropertyChangedImpl
     // ==============
 
     // Only show the current step of the application to simplify the UX.
+
     public AppStep CurrentStep
     {
         get => _currentStep;
