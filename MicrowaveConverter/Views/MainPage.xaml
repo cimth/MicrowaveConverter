@@ -2,15 +2,24 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:language="clr-namespace:MicrowaveConverter.Resources.Language"
+             xmlns:models="clr-namespace:MicrowaveConverter.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MicrowaveConverter.Views.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20">
+        <VerticalStackLayout Padding="20"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center">
+
+            <!-- 
+                In the following, the original wattage, the original time and the target wattage are requested from the user in separate steps.
+                Afterwards, the target wattage is shown to the user.
+            -->
             
             <!-- Original wattage -->
-            <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.OriginalWattage}"
+            <VerticalStackLayout Padding="20" 
+                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalWattage}}">
+                <Label Text="{x:Static language:Strings.OriginalWattageQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
                 <Entry Text="{Binding InputOriginalWattage}"
@@ -28,11 +37,16 @@
                             Command="{Binding UpdateAfterInputCommand}" />
                     </Entry.Behaviors>
                 </Entry>
+
+                <Button Text="{x:Static language:Strings.Continue}"
+                        Command="{Binding ContinueFromOriginalWattageCommand}"
+                        Style="{StaticResource Button}" />
             </VerticalStackLayout>
         
             <!-- Original time -->
-            <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.OriginalTime}"
+            <VerticalStackLayout Padding="20"
+                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalTime}}">
+                <Label Text="{x:Static language:Strings.OriginalTimeQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
                 <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}">
@@ -49,11 +63,16 @@
                             Command="{Binding UpdateAfterInputCommand}" />
                     </Entry.Behaviors>
                 </Entry>
+
+                <Button Text="{x:Static language:Strings.Continue}"
+                        Command="{Binding ContinueFromOriginalTimeCommand}"
+                        Style="{StaticResource Button}" />
             </VerticalStackLayout>
             
             <!-- Target wattage -->
-            <VerticalStackLayout Padding="20">
-                <Label Text="{x:Static language:Strings.TargetWattage}"
+            <VerticalStackLayout Padding="20"
+                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetWattage}}">
+                <Label Text="{x:Static language:Strings.TargetWattageQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
                 <Entry Text="{Binding InputTargetWattage}"
@@ -71,15 +90,24 @@
                             Command="{Binding UpdateAfterInputCommand}" />
                     </Entry.Behaviors>
                 </Entry>
+
+                <Button Text="{x:Static language:Strings.Continue}"
+                        Command="{Binding ContinueFromTargetWattageCommand}"
+                        Style="{StaticResource Button}" />
             </VerticalStackLayout>
             
             <!-- Target time -->
-            <VerticalStackLayout Padding="20">
+            <VerticalStackLayout Padding="20"
+                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetTime}}">
                 <Label Text="{x:Static language:Strings.TargetTime}"
                        Style="{StaticResource LabelHeader}"></Label>
 
                 <Entry Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
                        IsEnabled="False"></Entry>
+
+                <Button Text="{x:Static language:Strings.Restart}"
+                        Command="{Binding RestartCommand}"
+                        Style="{StaticResource Button}" />
             </VerticalStackLayout>
             
         </VerticalStackLayout>

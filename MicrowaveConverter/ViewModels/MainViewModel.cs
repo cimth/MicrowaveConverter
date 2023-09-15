@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using MicrowaveConverter.Models;
 using MicrowaveConverter.Utils;
 
 namespace MicrowaveConverter.ViewModels;
@@ -8,6 +9,13 @@ public class MainViewModel : NotifyPropertyChangedImpl
     // ==============
     // Properties
     // ==============
+
+    // Only show the current step of the application to simplify the UX.
+    public AppStep CurrentStep
+    {
+        get => _currentStep;
+        set => SetField(ref _currentStep, value);
+    }
 
     // Use raw strings for the input fields to always show a valid value and not messing up with validation.
 
@@ -60,6 +68,10 @@ public class MainViewModel : NotifyPropertyChangedImpl
     // Commands
 
     public ICommand UpdateAfterInputCommand { get; }
+    public ICommand ContinueFromOriginalWattageCommand { get; }
+    public ICommand ContinueFromOriginalTimeCommand { get; }
+    public ICommand ContinueFromTargetWattageCommand { get; }
+    public ICommand RestartCommand { get; }
 
     // ==============
     // Fields
@@ -68,6 +80,8 @@ public class MainViewModel : NotifyPropertyChangedImpl
     private const string TimeFormat = "m\\:ss";
 
     // Fields behind the properties.
+
+    private AppStep _currentStep = AppStep.OriginalWattage;
 
     private string _inputOriginalWattage = "800";
     private string _inputOriginalTime = "2:00";
@@ -85,7 +99,12 @@ public class MainViewModel : NotifyPropertyChangedImpl
 
     public MainViewModel()
     {
+        // Initialize the commands.
         UpdateAfterInputCommand = new DelegateCommand(UpdateAfterInput);
+        ContinueFromOriginalWattageCommand = new DelegateCommand(ContinueFromOriginalWattage);
+        ContinueFromOriginalTimeCommand = new DelegateCommand(ContinueFromOriginalTime);
+        ContinueFromTargetWattageCommand = new DelegateCommand(ContinueFromTargetWattage);
+        RestartCommand = new DelegateCommand(Restart);
 
         // Run the update method once to apply the correct values after having them initialized.
         // Thus, the output target time and the validation properties will be computed correctly.
@@ -100,6 +119,26 @@ public class MainViewModel : NotifyPropertyChangedImpl
     {
         ValidateInputValues();
         ComputeTargetMicrowaveSettings();
+    }
+
+    private void ContinueFromOriginalWattage()
+    {
+        CurrentStep = AppStep.OriginalTime;
+    }
+
+    private void ContinueFromOriginalTime()
+    {
+        CurrentStep = AppStep.TargetWattage;
+    }
+
+    private void ContinueFromTargetWattage()
+    {
+        CurrentStep = AppStep.TargetTime;
+    }
+
+    private void Restart()
+    {
+        CurrentStep = AppStep.OriginalWattage;
     }
 
     // ==============
