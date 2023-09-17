@@ -7,9 +7,8 @@
              x:Class="MicrowaveConverter.Views.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center">
+        <VerticalStackLayout Margin="60" 
+                             VerticalOptions="Center">
 
             <!-- 
                 In the following, the original wattage, the original time and the target wattage are requested from the user in separate steps.
@@ -17,13 +16,13 @@
             -->
             
             <!-- Original wattage -->
-            <VerticalStackLayout Padding="20" 
-                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalWattage}}">
+            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalWattage}}">
                 <Label Text="{x:Static language:Strings.OriginalWattageQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
                 <Entry Text="{Binding InputOriginalWattage}"
-                       Keyboard="Numeric">
+                       Keyboard="Numeric"
+                       Style="{StaticResource CustomEntry}">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
                         <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalWattage}" Value="False">
@@ -40,16 +39,16 @@
 
                 <Button Text="{x:Static language:Strings.Continue}"
                         Command="{Binding ContinueFromOriginalWattageCommand}"
-                        Style="{StaticResource Button}" />
+                        IsEnabled="{Binding IsValidInputOriginalWattage}" />
             </VerticalStackLayout>
         
             <!-- Original time -->
-            <VerticalStackLayout Padding="20"
-                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalTime}}">
+            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalTime}}">
                 <Label Text="{x:Static language:Strings.OriginalTimeQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
-                <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}">
+                <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
+                       Style="{StaticResource CustomEntry}">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
                         <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalTime}" Value="False">
@@ -66,17 +65,17 @@
 
                 <Button Text="{x:Static language:Strings.Continue}"
                         Command="{Binding ContinueFromOriginalTimeCommand}"
-                        Style="{StaticResource Button}" />
+                        IsEnabled="{Binding IsValidInputOriginalTime}" />
             </VerticalStackLayout>
             
             <!-- Target wattage -->
-            <VerticalStackLayout Padding="20"
-                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetWattage}}">
+            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetWattage}}">
                 <Label Text="{x:Static language:Strings.TargetWattageQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
                 <Entry Text="{Binding InputTargetWattage}"
-                       Keyboard="Numeric">
+                       Keyboard="Numeric"
+                       Style="{StaticResource CustomEntry}">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
                         <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputTargetWattage}" Value="False">
@@ -93,7 +92,7 @@
 
                 <Button Text="{x:Static language:Strings.Continue}"
                         Command="{Binding ContinueFromTargetWattageCommand}"
-                        Style="{StaticResource Button}" />
+                        IsEnabled="{Binding IsValidInputTargetWattage}" />
             </VerticalStackLayout>
 
             <!-- 
@@ -101,15 +100,14 @@
                 so that the user can see their input and the result of the computation.
             -->
 
-            <VerticalStackLayout Padding="20"
-                                 IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetTime}}">
+            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetTime}}">
                 <!-- Original wattage -->
                 <VerticalStackLayout>
                     <Label Text="{x:Static language:Strings.OriginalWattage}"
                            Style="{StaticResource LabelHeader}"></Label>
 
-                    <Entry Text="{Binding InputOriginalWattage}"
-                           IsEnabled="False"></Entry>
+                    <Label Text="{Binding InputOriginalWattage}"
+                           Style="{StaticResource LabelContent}"></Label>
                 </VerticalStackLayout>
 
                 <!-- Original time -->
@@ -117,8 +115,8 @@
                     <Label Text="{x:Static language:Strings.OriginalTime}"
                            Style="{StaticResource LabelHeader}"></Label>
 
-                    <Entry Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
-                           IsEnabled="False"></Entry>
+                    <Label Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
+                           Style="{StaticResource LabelContent}"></Label>
                 </VerticalStackLayout>
 
                 <!-- Target wattage -->
@@ -126,23 +124,29 @@
                     <Label Text="{x:Static language:Strings.TargetWattage}"
                            Style="{StaticResource LabelHeader}"></Label>
 
-                    <Entry Text="{Binding InputTargetWattage}"
-                           IsEnabled="False"></Entry>
+                    <Label Text="{Binding InputTargetWattage}"
+                           Style="{StaticResource LabelContent}"></Label>
                 </VerticalStackLayout>
 
                 <!-- Target time -->
-                <VerticalStackLayout>
-                    <Label Text="{x:Static language:Strings.TargetTime}"
-                           Style="{StaticResource LabelHeader}"></Label>
+                <Border Stroke="{StaticResource Primary}"
+                        StrokeThickness="5"
+                        BackgroundColor="{StaticResource AppLight}"
+                        Margin="0,20"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="{x:Static language:Strings.TargetTime}"
+                               Style="{StaticResource LabelHeader}"></Label>
 
-                    <Entry Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
-                           IsEnabled="False"></Entry>
-                </VerticalStackLayout>
+                        <Label Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
+                               Style="{StaticResource LabelContent}"></Label>
+                    </VerticalStackLayout>
+                </Border>
 
                 <!-- Restart the app flow -->
                 <Button Text="{x:Static language:Strings.Restart}"
-                        Command="{Binding RestartCommand}"
-                        Style="{StaticResource Button}" />
+                        Command="{Binding RestartCommand}" />
                 
             </VerticalStackLayout>
             
