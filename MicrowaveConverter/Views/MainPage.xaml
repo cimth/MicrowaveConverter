@@ -39,7 +39,8 @@
 
                 <Button Text="{x:Static language:Strings.Continue}"
                         Command="{Binding ContinueFromOriginalWattageCommand}"
-                        IsEnabled="{Binding IsValidInputOriginalWattage}" />
+                        IsEnabled="{Binding IsValidInputOriginalWattage}"
+                        Style="{StaticResource CustomButton}" />
             </VerticalStackLayout>
         
             <!-- Original time -->
@@ -65,7 +66,8 @@
 
                 <Button Text="{x:Static language:Strings.Continue}"
                         Command="{Binding ContinueFromOriginalTimeCommand}"
-                        IsEnabled="{Binding IsValidInputOriginalTime}" />
+                        IsEnabled="{Binding IsValidInputOriginalTime}"
+                        Style="{StaticResource CustomButton}" />
             </VerticalStackLayout>
             
             <!-- Target wattage -->
@@ -92,7 +94,8 @@
 
                 <Button Text="{x:Static language:Strings.Continue}"
                         Command="{Binding ContinueFromTargetWattageCommand}"
-                        IsEnabled="{Binding IsValidInputTargetWattage}" />
+                        IsEnabled="{Binding IsValidInputTargetWattage}"
+                        Style="{StaticResource CustomButton}" />
             </VerticalStackLayout>
 
             <!-- 
@@ -146,7 +149,8 @@
 
                 <!-- Restart the app flow -->
                 <Button Text="{x:Static language:Strings.Restart}"
-                        Command="{Binding RestartCommand}" />
+                        Command="{Binding RestartCommand}"
+                        Style="{StaticResource CustomButton}" />
                 
             </VerticalStackLayout>
             
