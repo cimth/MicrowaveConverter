@@ -26,4 +26,43 @@ public partial class MainPage : ContentPage
             entry.HideKeyboardAsync(CancellationToken.None);
         }
     }
+
+    // ==============
+    // Set focus on Entry elements and mark their complete text
+    // ==============
+
+    private void MainPage_OnLoaded(object? sender, EventArgs e)
+    {
+        FocusAndSelectCompleteTextInsideEntry(EntryOriginalWattage);
+    }
+
+    private void ButtonOriginalWattage_OnClick(object? sender, EventArgs e)
+    {
+        FocusAndSelectCompleteTextInsideEntry(EntryOriginalTime);
+    }
+
+    private void ButtonOriginalTime_OnClick(object? sender, EventArgs e)
+    {
+        FocusAndSelectCompleteTextInsideEntry(EntryTargetWattage);
+    }
+
+    private void ButtonTargetTime_OnClick(object? sender, EventArgs e)
+    {
+        FocusAndSelectCompleteTextInsideEntry(EntryOriginalWattage);
+    }
+
+    private void FocusAndSelectCompleteTextInsideEntry(Entry entry)
+    {
+        // Wrap inside the dispatcher for making the commands working correctly in Android.
+        // See: https://stackoverflow.com/questions/76078597/select-all-text-in-entry-when-focused
+        Dispatcher.Dispatch(() =>
+        {
+            // Set the focus on the Entry for entering the original wattage.
+            entry.Focus();
+
+            // Select the complete text inside the Entry.
+            entry.CursorPosition = 0;
+            entry.SelectionLength = entry.Text.Length;
+        });
+    }
 }
