@@ -30,7 +30,8 @@
                        Text="{Binding InputOriginalWattage}"
                        Keyboard="Numeric"
                        Style="{StaticResource CustomEntry}"
-                       Unfocused="Entry_OnUnfocused">
+                       Unfocused="Entry_OnUnfocused"
+                       ReturnType="Next">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
                         <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalWattage}" Value="False">
@@ -42,6 +43,10 @@
                         <toolkit:EventToCommandBehavior
                             EventName="TextChanged"
                             Command="{Binding UpdateAfterInputCommand}" />
+                        <!-- Use the 'return' button for continuing -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="Completed"
+                            Command="{Binding ContinueFromOriginalWattageCommand}" />
                     </Entry.Behaviors>
                 </Entry>
 
@@ -60,7 +65,8 @@
                 <Entry x:Name="EntryOriginalTime"
                        Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
                        Style="{StaticResource CustomEntry}"
-                       Unfocused="Entry_OnUnfocused">
+                       Unfocused="Entry_OnUnfocused"
+                       ReturnType="Next">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
                         <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalTime}" Value="False">
@@ -72,6 +78,10 @@
                         <toolkit:EventToCommandBehavior
                             EventName="TextChanged"
                             Command="{Binding UpdateAfterInputCommand}" />
+                        <!-- Use the 'return' button for continuing -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="Completed"
+                            Command="{Binding ContinueFromOriginalTimeCommand}" />
                     </Entry.Behaviors>
                 </Entry>
 
@@ -91,7 +101,8 @@
                        Text="{Binding InputTargetWattage}"
                        Keyboard="Numeric"
                        Style="{StaticResource CustomEntry}"
-                       Unfocused="Entry_OnUnfocused">
+                       Unfocused="Entry_OnUnfocused"
+                       ReturnType="Next">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
                         <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputTargetWattage}" Value="False">
@@ -103,6 +114,10 @@
                         <toolkit:EventToCommandBehavior
                             EventName="TextChanged"
                             Command="{Binding UpdateAfterInputCommand}" />
+                        <!-- Use the 'return' button for continuing -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="Completed"
+                            Command="{Binding ContinueFromTargetWattageCommand}" />
                     </Entry.Behaviors>
                 </Entry>
 
