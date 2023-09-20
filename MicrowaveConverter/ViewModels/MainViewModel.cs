@@ -11,11 +11,45 @@ public class MainViewModel : NotifyPropertyChangedImpl
     // ==============
 
     // Only show the current step of the application to simplify the UX.
+    // However, to apply the styles correctly in WinUI (i.e. in Windows builds), you have to make the whole page visible on initialization
+    // right now (this seems to be a bug within .NET MAUI). 
+    // Thus, we use a separate bool variable for each step to initialize each bool variable with true on initialization.
+    // When the page is loaded, the Restart() method will be called which then sets only one of the boolean variables on true.
+    // The idea for the solution is based on https://github.com/dotnet/maui/issues/11427. Wrapping the panels in another panel did not work.
+    // Note: On Android the button styles were applied as expected (e.g. without the clear button).
 
     public AppStep CurrentStep
     {
         get => _currentStep;
-        set => SetField(ref _currentStep, value);
+        set
+        {
+            SetField(ref _currentStep, value);
+            UpdateShownStep();
+        }
+    }
+
+    public bool IsStepOriginalWattage
+    {
+        get => _isStepOriginalWattage;
+        set => SetField(ref _isStepOriginalWattage, value);
+    }
+
+    public bool IsStepOriginalTime
+    {
+        get => _isStepOriginalTime;
+        set => SetField(ref _isStepOriginalTime, value);
+    }
+
+    public bool IsStepTargetWattage
+    {
+        get => _isStepTargetWattage;
+        set => SetField(ref _isStepTargetWattage, value);
+    }
+
+    public bool IsStepTargetTime
+    {
+        get => _isStepTargetTime;
+        set => SetField(ref _isStepTargetTime, value);
     }
 
     // Use raw strings for the input fields to always show a valid value and not messing up with validation.
@@ -31,7 +65,7 @@ public class MainViewModel : NotifyPropertyChangedImpl
         get => _inputOriginalTime;
         set => SetField(ref _inputOriginalTime, value);
     }
-    
+
     public string InputTargetWattage
     {
         get => _inputTargetWattage;
@@ -83,6 +117,11 @@ public class MainViewModel : NotifyPropertyChangedImpl
     // Fields behind the properties.
 
     private AppStep _currentStep = AppStep.OriginalWattage;
+
+    private bool _isStepOriginalWattage = true;
+    private bool _isStepOriginalTime = true;
+    private bool _isStepTargetWattage = true;
+    private bool _isStepTargetTime = true;
 
     private string _inputOriginalWattage = "800";
     private string _inputOriginalTime = "2:00";
@@ -174,5 +213,17 @@ public class MainViewModel : NotifyPropertyChangedImpl
         IsValidInputOriginalWattage = int.TryParse(InputOriginalWattage, out _);
         IsValidInputOriginalTime = TimeSpan.TryParseExact(InputOriginalTime, TimeFormat, null, out _);
         IsValidInputTargetWattage = int.TryParse(InputTargetWattage, out _);
+    }
+
+    // ==============
+    // Update shown panels
+    // ==============
+
+    private void UpdateShownStep()
+    {
+        IsStepOriginalWattage = _currentStep == AppStep.OriginalWattage;
+        IsStepOriginalTime = _currentStep == AppStep.OriginalTime;
+        IsStepTargetWattage = _currentStep == AppStep.TargetWattage;
+        IsStepTargetTime = _currentStep == AppStep.TargetTime;
     }
 }

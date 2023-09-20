@@ -5,6 +5,11 @@
              xmlns:models="clr-namespace:MicrowaveConverter.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MicrowaveConverter.Views.MainPage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior 
+            EventName="Loaded"
+            Command="{Binding RestartCommand}" />
+    </ContentPage.Behaviors>
 
     <ScrollView>
         <VerticalStackLayout Margin="60" 
@@ -16,7 +21,7 @@
             -->
             
             <!-- Original wattage -->
-            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalWattage}}">
+            <VerticalStackLayout IsVisible="{Binding IsStepOriginalWattage}">
                 <Label Text="{x:Static language:Strings.OriginalWattageQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
@@ -44,7 +49,7 @@
             </VerticalStackLayout>
         
             <!-- Original time -->
-            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.OriginalTime}}">
+            <VerticalStackLayout IsVisible="{Binding IsStepOriginalTime}">
                 <Label Text="{x:Static language:Strings.OriginalTimeQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
@@ -71,7 +76,7 @@
             </VerticalStackLayout>
             
             <!-- Target wattage -->
-            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetWattage}}">
+            <VerticalStackLayout IsVisible="{Binding IsStepTargetWattage}">
                 <Label Text="{x:Static language:Strings.TargetWattageQuestion}"
                        Style="{StaticResource LabelHeader}"></Label>
 
@@ -103,7 +108,7 @@
                 so that the user can see their input and the result of the computation.
             -->
 
-            <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource EqualsToVisibilityConverter}, ConverterParameter={x:Static models:AppStep.TargetTime}}">
+            <VerticalStackLayout IsVisible="{Binding IsStepTargetTime}">
                 <!-- Original wattage -->
                 <VerticalStackLayout>
                     <Label Text="{x:Static language:Strings.OriginalWattage}"
