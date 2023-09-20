@@ -36,15 +36,37 @@ public partial class MainPage : ContentPage
         FocusAndSelectCompleteTextInsideEntry(EntryOriginalWattage);
     }
 
+    /*
+     * AppStep.OriginalWattage
+     */
+
     private void ButtonOriginalWattage_OnClick(object? sender, EventArgs e)
     {
         FocusAndSelectCompleteTextInsideEntry(EntryOriginalTime);
     }
 
+    private void EntryOriginalWattage_OnCompleted(object? sender, EventArgs e)
+    {
+        FocusAndSelectCompleteTextInsideEntry(EntryOriginalTime);
+    }
+
+    /*
+     * AppStep.OriginalTime
+     */
+
     private void ButtonOriginalTime_OnClick(object? sender, EventArgs e)
     {
         FocusAndSelectCompleteTextInsideEntry(EntryTargetWattage);
     }
+
+    private void EntryOriginalTime_OnCompleted(object? sender, EventArgs e)
+    {
+        FocusAndSelectCompleteTextInsideEntry(EntryTargetWattage);
+    }
+
+    /*
+     * AppStep.TargetTime
+     */
 
     private void ButtonTargetTime_OnClick(object? sender, EventArgs e)
     {

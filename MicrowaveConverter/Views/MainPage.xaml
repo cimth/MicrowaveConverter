@@ -31,6 +31,7 @@
                        Keyboard="Numeric"
                        Style="{StaticResource CustomEntry}"
                        Unfocused="Entry_OnUnfocused"
+                       Completed="EntryOriginalWattage_OnCompleted"
                        ReturnType="Next">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
@@ -66,6 +67,7 @@
                        Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
                        Style="{StaticResource CustomEntry}"
                        Unfocused="Entry_OnUnfocused"
+                       Completed="EntryOriginalTime_OnCompleted"
                        ReturnType="Next">
                     <Entry.Triggers>
                         <!-- Show invalid input -->
