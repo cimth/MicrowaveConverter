@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:language="clr-namespace:MicrowaveConverter.Resources.Language"
+             xmlns:models="clr-namespace:MicrowaveConverter.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MicrowaveConverter.Views.MainPage"
+             Loaded="MainPage_OnLoaded">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior 
+            EventName="Loaded"
+            Command="{Binding RestartCommand}" />
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout Margin="60" 
+                             VerticalOptions="Center">
+
+            <!-- 
+                In the following, the original wattage, the original time and the target wattage are requested from the user in separate steps.
+                Afterwards, the target wattage is shown to the user.
+            -->
+            
+            <!-- Original wattage -->
+            <VerticalStackLayout IsVisible="{Binding IsStepOriginalWattage}">
+                <Label Text="{x:Static language:Strings.OriginalWattageQuestion}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
+                <Entry x:Name="EntryOriginalWattage"
+                       Text="{Binding InputOriginalWattage}"
+                       Keyboard="Numeric"
+                       Style="{StaticResource CustomEntry}"
+                       Unfocused="Entry_OnUnfocused"
+                       Completed="EntryOriginalWattage_OnCompleted"
+                       ReturnType="Next">
+                    <Entry.Triggers>
+                        <!-- Show invalid input -->
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalWattage}" Value="False">
+                            <Setter Property="TextColor" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Entry.Triggers>
+                    <Entry.Behaviors>
+                        <!-- Update the ViewModel after each input -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding UpdateAfterInputCommand}" />
+                        <!-- Use the 'return' button for continuing -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="Completed"
+                            Command="{Binding ContinueFromOriginalWattageCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Button Text="{x:Static language:Strings.Continue}"
+                        Command="{Binding ContinueFromOriginalWattageCommand}"
+                        IsEnabled="{Binding IsValidInputOriginalWattage}"
+                        Style="{StaticResource CustomButton}"
+                        Clicked="ButtonOriginalWattage_OnClick"/>
+            </VerticalStackLayout>
+        
+            <!-- Original time -->
+            <VerticalStackLayout IsVisible="{Binding IsStepOriginalTime}">
+                <Label Text="{x:Static language:Strings.OriginalTimeQuestion}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
+                <Entry x:Name="EntryOriginalTime"
+                       Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
+                       Style="{StaticResource CustomEntry}"
+                       Unfocused="Entry_OnUnfocused"
+                       Completed="EntryOriginalTime_OnCompleted"
+                       ReturnType="Next">
+                    <Entry.Triggers>
+                        <!-- Show invalid input -->
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputOriginalTime}" Value="False">
+                            <Setter Property="TextColor" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Entry.Triggers>
+                    <Entry.Behaviors>
+                        <!-- Update the ViewModel after each input -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding UpdateAfterInputCommand}" />
+                        <!-- Use the 'return' button for continuing -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="Completed"
+                            Command="{Binding ContinueFromOriginalTimeCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Button Text="{x:Static language:Strings.Continue}"
+                        Command="{Binding ContinueFromOriginalTimeCommand}"
+                        IsEnabled="{Binding IsValidInputOriginalTime}"
+                        Style="{StaticResource CustomButton}"
+                        Clicked="ButtonOriginalTime_OnClick" />
+            </VerticalStackLayout>
+            
+            <!-- Target wattage -->
+            <VerticalStackLayout IsVisible="{Binding IsStepTargetWattage}">
+                <Label Text="{x:Static language:Strings.TargetWattageQuestion}"
+                       Style="{StaticResource LabelHeader}"></Label>
+
+                <Entry x:Name="EntryTargetWattage"
+                       Text="{Binding InputTargetWattage}"
+                       Keyboard="Numeric"
+                       Style="{StaticResource CustomEntry}"
+                       Unfocused="Entry_OnUnfocused"
+                       ReturnType="Next">
+                    <Entry.Triggers>
+                        <!-- Show invalid input -->
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsValidInputTargetWattage}" Value="False">
+                            <Setter Property="TextColor" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Entry.Triggers>
+                    <Entry.Behaviors>
+                        <!-- Update the ViewModel after each input -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding UpdateAfterInputCommand}" />
+                        <!-- Use the 'return' button for continuing -->
+                        <toolkit:EventToCommandBehavior
+                            EventName="Completed"
+                            Command="{Binding ContinueFromTargetWattageCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Button Text="{x:Static language:Strings.Continue}"
+                        Command="{Binding ContinueFromTargetWattageCommand}"
+                        IsEnabled="{Binding IsValidInputTargetWattage}"
+                        Style="{StaticResource CustomButton}" />
+            </VerticalStackLayout>
+
+            <!-- 
+                In the following, the original wattage, the original time and the target wattage and the computed target time are shown as readonly fields
+                so that the user can see their input and the result of the computation.
+            -->
+
+            <VerticalStackLayout IsVisible="{Binding IsStepTargetTime}">
+                <!-- Original wattage -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.OriginalWattage}"
+                           Style="{StaticResource LabelHeader}"></Label>
+
+                    <Label Text="{Binding InputOriginalWattage}"
+                           Style="{StaticResource LabelContent}"></Label>
+                </VerticalStackLayout>
+
+                <!-- Original time -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.OriginalTime}"
+                           Style="{StaticResource LabelHeader}"></Label>
+
+                    <Label Text="{Binding InputOriginalTime, StringFormat='{0:m\\:ss}'}"
+                           Style="{StaticResource LabelContent}"></Label>
+                </VerticalStackLayout>
+
+                <!-- Target wattage -->
+                <VerticalStackLayout>
+                    <Label Text="{x:Static language:Strings.TargetWattage}"
+                           Style="{StaticResource LabelHeader}"></Label>
+
+                    <Label Text="{Binding InputTargetWattage}"
+                           Style="{StaticResource LabelContent}"></Label>
+                </VerticalStackLayout>
+
+                <!-- Target time -->
+                <Border Stroke="{StaticResource Primary}"
+                        StrokeThickness="5"
+                        BackgroundColor="{StaticResource AppLight}"
+                        Margin="0,20"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="{x:Static language:Strings.TargetTime}"
+                               Style="{StaticResource LabelHeader}"></Label>
+
+                        <Label Text="{Binding OutputTargetTime, StringFormat='{0:m\\:ss}'}"
+                               Style="{StaticResource LabelContent}"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Restart the app flow -->
+                <Button Text="{x:Static language:Strings.Restart}"
+                        Command="{Binding RestartCommand}"
+                        Style="{StaticResource CustomButton}"
+                        Clicked="ButtonTargetTime_OnClick" />
+                
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	<!-- Labels for headers -->
+    <Style x:Key="LabelHeader" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold"></Setter>
+        <Setter Property="FontSize" Value="{OnPlatform iOS=Medium, Android=Medium, WinUI=Default}"></Setter>
+        <Setter Property="Margin" Value="0,15,0,0"></Setter>
+		<Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+	</Style>
+
+    <!-- Labels for content -->
+    <Style x:Key="LabelContent" TargetType="Label">
+		<Setter Property="FontSize" Value="{OnPlatform iOS=Medium, Android=Medium, WinUI=Default}"></Setter>
+		<Setter Property="Margin" Value="0,15"></Setter>
+		<Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+	</Style>
+
+	<!-- Entries -->
+	<Style x:Key="CustomEntry" TargetType="Entry">
+		<Setter Property="FontSize" Value="{OnPlatform iOS=Medium, Android=Medium, WinUI=Default}"></Setter>
+		<Setter Property="Margin" Value="0,25"></Setter>
+		<Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+	</Style>
+
+	<!-- Buttons -->
+	<Style x:Key="CustomButton" TargetType="Button">
+		<Setter Property="FontSize" Value="{OnPlatform iOS=Medium, Android=Medium, WinUI=Default}"></Setter>
+    </Style>
+</ResourceDictionary>
