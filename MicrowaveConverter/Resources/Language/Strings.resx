@@ -136,10 +136,10 @@
     <value>Continue</value>
   </data>
   <data name="OriginalTimeQuestion" xml:space="preserve">
-    <value>How many watts are indicated on the packaging?</value>
+    <value>How long should the food be heated according to the packaging?</value>
   </data>
   <data name="OriginalWattageQuestion" xml:space="preserve">
-    <value>How long should the food be heated according to the packaging?</value>
+    <value>How many watts are indicated on the packaging?</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>Restart</value>

@@ -88,7 +88,7 @@ namespace MicrowaveConverter.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many watts are indicated on the packaging?.
+        ///   Looks up a localized string similar to How long should the food be heated according to the packaging?.
         /// </summary>
         internal static string OriginalTimeQuestion {
             get {
@@ -106,7 +106,7 @@ namespace MicrowaveConverter.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How long should the food be heated according to the packaging?.
+        ///   Looks up a localized string similar to How many watts are indicated on the packaging?.
         /// </summary>
         internal static string OriginalWattageQuestion {
             get {

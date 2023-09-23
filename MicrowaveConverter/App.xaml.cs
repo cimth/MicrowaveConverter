@@ -1,4 +1,6 @@
-﻿namespace MicrowaveConverter;
+﻿using System.Globalization;
+
+namespace MicrowaveConverter;
 
 public partial class App : Application
 {
@@ -10,7 +12,20 @@ public partial class App : Application
     {
         InitializeComponent();
 
+        // Force English as language for developing purposes.
+        //SetLocale(new CultureInfo("en"));
+
         MainPage = new AppShell();
+    }
+
+    // ==============
+    // Force language for developing purposes
+    // ==============
+
+    public void SetLocale(CultureInfo ci)
+    {
+        Thread.CurrentThread.CurrentCulture = ci;
+        Thread.CurrentThread.CurrentUICulture = ci;
     }
 
     // ==============
